@@ -1,0 +1,53 @@
+Type Rules
+
+
+polymorphism / subtyping
+	let an expression that has one type also have another type that has less information
+	formally
+		t1 <: t2, t1 is subtype of t2
+		if e has type t1 and t1 <: t2, then e has also type t2
+	principle of substitutability - t1 must be able to be used anywhere where t2 can be used
+	+ code re-use
+
+
+
+generics / parametric polymorphism
+	polymorphic datatypes / classes with generics
+	+ flexibility, idiomatic for higher-order functions and generic operations over collections
+
+
+
+generics - subtyping	
+	they are not interchangeable, one is a bad substitute for the other
+
+
+
+bounded polymorphism
+	combines subtype and parametric polymorphism
+	bounded generic types: method is polymorphic in type 'a, but T must be a subtype of T (for all types 'a that are a subtype of T)
+
+
+
+function polymorphism
+	covariance
+		the subtype can have a return type that is a subtype of the supertype's return type
+		if ta <: tb, then t -> ta <: t -> tb
+		fine to pass in a function with a return type that promises more
+	contravariance
+		the subtype can have arguments type that is a supertype of the supertype's arguments type
+		if ta <: tb, then tb -> t <: ta -> t
+		fine to use a function that needs fewer arguments
+	combination of both
+		general rule for subtyping: if t3 <: t1 and t2 <: t4, then t1 -> t2 <: t3 -> t4
+
+
+
+type inference (Hindley-Milner type system)
+	undecidability
+		impossibile to implement a program such that the inference process
+			always terminates (halting problem)
+			always succeeds if inference is possible
+			always fails if inference is not possible		
+
+
+note: neither subtyping is not exclusive of OOP nor generics applies only to FP (e.g. Java has both)

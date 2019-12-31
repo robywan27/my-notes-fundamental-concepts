@@ -1,0 +1,71 @@
+Statically Typed vs Dynamically Typed Checking
+
+
+statically typed languages
+	perform type checking before the program runs, at "compile-time"; in case of type errors, the program is rejected
+
+
+
+dynamically typed languages
+	no type checking at "compile-time", errors are discovered at run-time;
+	note
+		dynamic typing does not imply that values are not typed
+		some dynamic checks are actually performed to prevent bad things to happen, which distinguishes this category from weak typing
+
+
+
+statically typed languages vs dynamically typed languages (ST vs DT)
+	simplistically, a ST language can be considered as a subset of a DT language (consider ML and Racket)
+		a ST language rejects more programs
+		a DT language is basically a ST language where every expression is part of a big datatype
+	comparison
+		convenience of use
+			ST: can assume data has a certain type and knowing thatassumption cannot be violated
+			DT: can mix and match different kinds of data without having to declare new type definitions
+		valid programs prevention
+			ST: modern type systems rarely get in the way and flexibility of DT languages (tags) can be replicated in ST languages too
+			DT: does not reject programs that make sense
+		early-bug detection
+			ST: catches bugs earlier at compile time
+			DT: static checking catches only bugs you would discover while testing anyways, and you still need to test your programs
+		performance
+			ST: can lead to faster code since there is no need to perform certain tests at run time
+			DT:
+				performance gained from static checking is not really relevant
+				implementations of DT languages can optimize away type tests when they are unnecessary
+				when in static checking you have to circumvent limitations of type system, you offset the performance advantages
+		code reuse
+			ST: this is more a design issue, sometimes it is good other times it's better to not reuse
+			DT: makes it easier to reuse library functions
+		prototyping
+			ST: still good to document types early in software design
+			DT: easier, no need to define types of variables, functions, data structures
+		code evolution
+			ST: can help catch bugs that evolution introduces because when changing the type of a function all its callers do not type check
+			DT: more convenient as we can change code to be more permissive without having to change clients
+	note
+		ST vs DT is orthogonal to FP vs OOP
+		not related to interpretation vs compilation
+
+
+
+weak typing
+	no check at all is employed (not even dynamic checks) to prevent some X which would make the system unsound to happen
+	the responsibility is shifted solely to the programmer
+
+
+
+correctness
+	soundness
+		a type system is sound if it never accepts a program that does some X we want to prevent
+		focus on precision, i.e. prevents false positives (accept an invalid program)
+		type systems focus on soundness
+	completeness
+		a type system is complete if it always accepts a program that will not do some X we want to prevent
+		focus on recall, i.e. prevents false negatives (reject a valid program)
+	undecidability
+		impossibile to implement a static checker which
+			always terminates (halting problem)
+			is sound
+			is complete
+		but can pick 2 out of 3 (type systems leave out completeness)

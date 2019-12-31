@@ -1,0 +1,111 @@
+Functional Programming vs Object-oriented Programming
+
+
+FP and OOP are complementary approaches, as they tackle the same problem by decomposing it in opposite ways
+
+
+conceptual matrix
+
+			   operation 1 | operation 2 | operation 3
+data variant 1			   |			 |
+data variant 2			   |			 |
+data variant 3			   |			 |
+
+
+Difference in approaches depends on what element you fill in each cell in the table
+	FP fills one function (operation) per column
+	OOP fills one class (data variant) per row
+
+
+
+FP decomposition														OOP decomposition
+
+			   operation 1 | operation 2 | operation 3								   operation 1 | operation 2 | operation 3
+data variant 1	  fun 1			fun 2		  fun 3						data variant 1	 class 1		class 1		  class 1
+data variant 2	  fun 1			fun 2		  fun 3						data variant 2	 class 2		class 2		  class 2
+data variant 3	  fun 1			fun 2		  fun 3						data variant 3	 class 3		class 3		  class 3
+
+
+
+FP organize a system around functions that operate on data
+OOP organize a system around objects that receive messages; an object encapsulate data and operations
+
+
+
+FP
+	decompose the program into functions implementing some operation
+	statically vs dynamically typed approaches
+		1. statically typed functional language
+			a. define a datatype with one constructor for each variant of data type
+			b. define a function for each operation on the datatype
+			c. in each function, have a branch (pattern-matching case) for any variant
+		2. dinamically typed functional language
+			a. implement the data objects out of primitive elements (e.g. lists) and prefix them with a distinct tag
+			b. define a function for each operation on the datatype
+			c. in each function, have a branch (tag predicate) for any variant
+	extending the system
+		add a new operation
+			simple, just create a new function
+		add a new data variant
+			more work, need to add a case to each function
+			statically typed language case: type-checker helps in detecting non-exhaustive pattern matches in the code
+
+OOP
+	decompose the program into classes that give behavior to some kind of data
+	statically vs dynamically typed approaches
+		1. statically typed object-oriented language
+			a. define a super class for the main data type (with an abstract methods for each operation)
+			b. define a subclass for each variant of data
+			c. in each subclass, have a method definition for each operation
+		2. dinamically typed object-oriented language
+				a.1. define a super class for the main data type (without abstract methods)
+				a.2. define a class for the main data type (with duck typing, no superclass)
+			b. define a subclass for each variant of data
+			c. in each subclass, have a method definition for each operation
+	extending the system
+		add a new data variant
+			simple, just create a new class
+		add a new operation
+			more work, need to add a method to each class
+			statically typed language case: type-checker helps in detecting classes that didn't implement an abstract method
+
+
+
+Use cases
+	FP is suited to systems with a small number of data types, such as arithmetic expressions
+	OOP is suited to systems with a larger number of objects*, such as simulations or GUIs
+		* the objects are characterized by a small amount of state information and the computation involves the interaction between the objects, causing the state to change 
+
+
+
+
+Other differences and similarities
+
+Differences
+	closures (FP) vs dynamic dispatch (OOP)		
+		function closures are defined at function definition; it is not possible to override a function behavior later
+		dynamic dispatch allows method overriding based on object to which self is evaluated ->
+			if a subclass is overriding a method of superclass and the caller object is of type subclass, then the subclass method is invoked
+
+Similarities
+	higher-order functions (FP) and abstract methods (OOP)
+		both allow for more code flexibility and re-usability
+		in higher-order functions, callers can pass different (functions) implementations as argument to the higher-order function
+		subclasses can provide their own implementations to abstract methods; when calling an object of superclass any specific implementation is invoked via dynamic dispatch
+	abstract data types
+		it is possible to represent ADTs both with functions (FP) and classes (OOP)
+		a record of function closures is similar to class objects
+			functions <=> class methods
+			variable bindings <=> class fields
+		however, ADTs implemented with those two different techniques do not have the same behaviors becaues of dynamic dispatch (see Differences)	
+
+
+
+Note
+	interpretation vs compilation is an irrelevant distinction wrt FP vs OOP
+
+
+
+sources:
+	sicp (OO slides)
+	programming languages C coursera				

@@ -1,0 +1,172 @@
+Functional Programming Principles
+
+
+main features
+	avoids mutation (side effects)		
+		referential transparency
+			property of expressions: the expression should be replaceable by its result without changing the meaning of the program
+			pure functions
+				a function is pure if callign it with RT arguments is also RT
+				modular, because such functions can be tested, reused and reasoned about independently of the program
+				composable, a function can be passed to another function or be the result value of one function (functions as values)
+				black-box model: input is obtained via arguments, output is computed and returned; to same inputs correspond same output
+				expression is independent of time (context) of invocation
+			equational reasoning about programs: substitution model
+				with RT expressions, computation proceeds as solution of an algebraic equation (expansion, variables substitution, reduction to simplest form)
+		can freely alias or copy values/objects
+		more functions are equivalent; can replace an equivalent function for another
+		no need to make local copies of data to retain the old value before mutation occurs
+		allows some kind of subtyping (depth subtyping) sound
+	
+	first-class functions (functions as values)
+
+	encourages recursion and recursive data structures
+		immutable functional data structures
+			data sharing: since data structures are immutable, no need to actually copy, can reuse them (have different references to them)
+			persistent data structures: existing references are never changes by operations on the data structure
+
+	expressions over statements
+		expressions
+			expressions are always evaluated to a value
+			control structures (if-else) are expressions instead of statements -> you need to define a value (of the same type) for all possible branches
+		statements
+			blocks of code which produce side effects	
+	
+	closer to mathematical definitions		
+
+
+
+first-class functions
+	functions can be treated as values
+		passed as arguments
+		be function return value
+		be parts of tuples
+		bound to variables
+		carried by datatype constructor or exceptions
+		...
+
+
+
+anonymous functions (lambda expressions)
+	function without a name
+	a drawback is you cannot use them when recursion is needed
+
+
+
+function closures
+	function as a pair
+		body, the code
+		environment	current to the definition of the function
+	closure carries the environment in which all the bindings corresponding to the free variables in the function body are defined
+	scope
+		dynamic scope
+			the body of a function is evaluated in the environment where the function is called
+		lexical scope
+			the body of a function is evaluated in the environment where the function is defined
+			advantages
+				function meaning does not depend on variable names used
+				functions can be type-checked and reasoned about where defined
+				closures can store data
+	idioms
+		iterators (fold)
+		composition
+		currying
+		callbacks
+		abstract data types
+
+
+
+higher-order functions
+	abstraction over common pattern -> code re-use
+	functions as arguments
+	functions as return values
+	higher-order idioms
+		operations over collections (iterators)
+			map
+			filter		
+			fold
+		composition
+
+
+
+currying / partial application
+	currying: take one argument and return a closure with another function which takes an argument and so on
+	partial application: caller can provide fewer arguments to curried function; allows point-free style notation
+
+
+
+recursion
+	recursive algorithm
+	iterative algorithm
+		tail call optimization
+			tail position: if the caller simply returns the value of the recursive call, without any deferred operation
+			stack frames are not accumulated, making the recursion space as efficient as an iterative loop
+	multiple recursion (e.g. fibonacci)
+	mutual recursion
+
+
+
+callbacks
+	(registered) functions called when a given event occurs
+
+
+
+abstract data types
+	a record of closures sharing the same environment (similar to objects in OOP)		
+
+
+
+delayed evaluation
+	thunk
+		code wrapped inside a no-argument function in order to delay evaluation; the expression is going to be evaluated when the function is called
+	lazy evaluation
+		synonims: call-by-need, promise, call-by-name evaluation, normal-order evaluation
+		function arguments are not evaluated before calling the function body
+		evaluates a thunk only the first time it is called; then, it simply returns the result of the computation
+		mutation introduces issues
+			since call happens only once, side effects are error-prone, because may be difficult to determine when the first call will occur
+		opposed to strict application / call-by-value evaluation / applicative-order evaluation
+	streams
+		infite sequence of values
+		separation of concerns
+			separation between the description of an expression from the evaluation of that expression
+			one part of the code is concerned only on how to produce the next value in the sequence, but does not need to know how many elements it will need to produce
+			another part determines how many elements are needed but is not concerned on how to generate them
+	memoization
+		store result of expensive computation, for example in some table; it is related to lazy evaluation but does not employ thunks
+		mutation introduces issues
+			to be correct, it is required that given the same arguments a function will always return the same result (referential transparency)
+	note on mutation:
+		both in lazy evaluation and memoization mutation is used, but only for their implementation (e.g. set to false pair with thunk for lazy evaluation or mutating table for memoization); it is the functions passed that should not have side effects
+
+
+
+statically typed functional languages
+	case expressions / pattern matching
+		descends into the structure of the expression it examines and extracts subexpressions out of that structure
+		advantages
+			you cannot forget a case (exhaustive check)
+			you cannot duplicate a case (type-checking)
+			you cannot forget to test the variant correctly (unlike with functions extracting parts)
+			can be generalized to make elegant and concise code
+	algebraic data type (ADT)
+		data type defined by oen or more constructors, each with zero or more arguments
+			data type is the sum/union of its data constructors
+			each data constructor is the product/intersection of its arguments
+	type synonims
+
+
+
+
+additional features
+	list comprehensions
+
+	
+	type classes (Haskell)
+		overloaded types
+			class constraints on types of the form C a (C name of the class and a type variable)				
+				for any type a that is an instance of class C, function f has type a -> ...
+
+
+
+	monads, ...

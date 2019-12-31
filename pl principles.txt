@@ -1,0 +1,91 @@
+Programming Languages Principles
+
+
+syntax vs semantics
+	syntax
+		defines how to write programs in a language
+	semantics
+		defines how programs type-check and are evaluated
+		further divided in
+			type-checking
+				produces a type or fails
+				static environment: types of the preceding bindings in the file
+				before the program runs
+			evaluation 
+				produces a value or exception or infinite loop
+				dynamic environment: values of the preceding bindings in the file
+				when the program runs
+	idioms
+		common approaches to use the language features to express computations
+	libraries (facilities provided by the language)
+	tools (what do language implementations provide to make your job easier)
+
+
+
+another view on basic elements of a language (SICP)
+	primitive elements
+	means of combination
+	means of abstraction
+
+
+
+common basic features
+	expressions
+	statements (where mutation is allowed)
+	bindings
+		variables
+		functions
+	functions
+		definition
+		call
+	compound data (depends on language)
+		lists
+		tuples		
+		arrays
+		hashes/maps
+		options
+	local bindings
+
+
+
+compound types
+	each-of-type / product type
+		a t value contains values of each of t1 t2 ... tn
+		example: tuples
+	one-of-type / sum type
+		a t value contains values of one of t1 t2 ... tn
+		example: options
+	self-reference-type / recursive type
+		a t value can refer to other t values
+		example: lists
+
+
+
+common custom-defined types
+	datatype bindings (functional statically typed languages)
+	classes, interfaces, traits (object-oriented languages)
+	tagged data structure (functional dynamically typed languages, like Scheme)
+
+
+
+fundamental principles
+	information hiding
+		hide complexity
+		hide sources of change
+		modularity
+			modules, namespaces, ...
+			classes
+			functions
+	equivalence
+
+
+
+ADT (term overloading)
+	abstract data type (object-oriented or dynamically typed functional languages)
+		hides the implementation of the internal representation of a (compound) data object
+		encapsulation, modularity: allows to hide the details of the data object implementation and change it without affecting clients of the object
+		compound data objects are not matched against (pattern matching), rather accessor functions/getter methods are used to extract internal elements
+	algebraic data type (statically typed functional languages)
+		defines publicly the internal representation of a data type
+		is not concerned with with encapsulating the internal representation, on the contrary it is exploited for pattern matching
+		useful to represent types where constructors are fixed and should not be changed

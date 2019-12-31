@@ -1,0 +1,98 @@
+Object-Oriented Programming Principles
+
+
+abstract data type (ADT)
+	collection of data and operations that work on that data
+	information hiding
+	encapsulation
+
+
+containment
+	class can contain other classes
+	can be a better alternative to inheritance in some cases (favor composition over inheritance principle)
+
+
+inheritance
+	tree hierarchy of classes
+	method overriding (overloading)
+
+
+
+multiple inheritance
+	can subclass multiple classes
+	can admit diamond hierarchies of classes (e.g. DDOD)
+	needs more complicated lookup/resolution rules because of possibly common instance variables and methods
+
+
+
+interfaces
+	used in languages which do not admit multiple inheritance; they are not classes as they cannot be instantiated	
+	useful for type-checking, because any class implementing an interface can be passed wherever the interface is accepted (this is why they are used in statically-typed languages)
+	do not define behavior (methods), they just require that some methods are implemented
+	not useful in languages with multiple inheritance because they can simply subclass classes with only abstract methods
+	not useful in dynamically-typed languages as it is already possible to pass any object to any method and call any method on any object
+
+
+
+mixins/traits
+	used in languages which do not admit multiple inheritance; they are not classes as they cannot be instantiated
+	provide some behavior to the classes that include them; unlike interfaces, they define the body of their methods
+
+
+
+polymorphism
+	let an expression that has one type also have another type that has less information
+
+
+
+dynamic dispatch / late binding	
+	this/self is bound to the object that is the receiver of the message: in e0.m(e1,...,en) self is bound to obj0, the object associated to e0		
+
+
+
+double dispatch
+	2-step dispatch exploting this/self object to invoke the method of the appropriate class
+
+
+
+multimethods / multiple dispatch
+	get runtime class not only of the receiver (object calling method) but of the arguments too
+
+
+
+principles	
+	law of Demeter
+		minimize coupling between modules
+		an object's method should call only methods from
+			itself
+			any parameters that were passed in to the method
+			any object the method created
+			any directly held component object
+	design by contract
+		class should expose an interface and deliver promised behavior		
+			preconditions: what must be true for the method to be called
+			postconditions: what a method is guaranteed to do
+			class invariants: a method ensures that certain class properties are guaranteed			
+			connection with inheritance, polymorphism
+				contract is specified once in the base class
+				subclass should keep or weaken preconditions, otherwise the subclass is not substitutable in lieu of the superclass
+				subclass should keep or strengthen postconditions, to not promise less than parent does
+	DRY (don't repeat yourself)
+		every piece of knowledge must have a single, unambiguous, authoritative representation within a system
+	SOLID
+		single responsibility principle
+			a class or module should have only one reason to change, i.e. class should have only one job
+		open/closed principle
+			a class should be open for extension, but closed for modification
+		liskov substitution principle
+			subclasses should be usable through the base class interface without the clients needing to know the difference
+		interface segregation principle
+			a client should not be forced to implement an interface methods it does not need, i.e. interfaces should be smaller and more specific
+		dependency inversion principle
+			entities must depend on abstractions and not implementations
+	dependency injection (inversion of control): a client delegates responsibility of providing its services to an external object (S + D)
+	maximise class cohesiveness, data and behavior should be tightly coupled and related
+
+
+
+design patterns
